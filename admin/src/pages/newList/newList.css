@@ -1,0 +1,44 @@
+.newList {
+  flex: 4;
+  padding: 0 30px;
+}
+
+.addListForm {
+  margin-top: 10px;
+  display: flex;
+  gap: 50px;
+}
+
+.addListItem {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 500px;
+}
+
+.addListItem > label {
+  color: gray;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.addListItem > input {
+  padding: 10px;
+}
+
+.addListItem > select {
+  padding: 10px;
+}
+
+.addListButton {
+  margin-top: 10px;
+  width: 70px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: darkblue;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
