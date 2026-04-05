@@ -1,0 +1,73 @@
+{
+  "info": {
+    "name": "Netflix Backend V2",
+    "_postman_id": "4f14c5a7-93f0-4da4-b6f9-8e7f4ef3a311",
+    "description": "Phase 1 endpoints for profile, home, catalog, my-list, playback, history, settings, notifications, downloads.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "token", "value": "" },
+    { "key": "profileId", "value": "" },
+    { "key": "contentId", "value": "" },
+    { "key": "notificationId", "value": "" },
+    { "key": "downloadId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"seed-admin@zetflix.local\",\n  \"password\": \"12345678\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profiles",
+      "item": [
+        { "name": "List Profiles", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/profiles" } },
+        { "name": "Create Profile", "request": { "method": "POST", "header": [{ "key": "token", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/profiles", "body": { "mode": "raw", "raw": "{\n  \"name\": \"Ngoc\",\n  \"isKid\": false,\n  \"language\": \"vi\"\n}" } } }
+      ]
+    },
+    {
+      "name": "Home Catalog",
+      "item": [
+        { "name": "Home Feed", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/home?profileId={{profileId}}" } },
+        { "name": "Search", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/catalog/search?q=taxi&page=1&limit=20" } },
+        { "name": "Content Detail", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/catalog/content/{{contentId}}" } }
+      ]
+    },
+    {
+      "name": "My List",
+      "item": [
+        { "name": "Get My List", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/my-list?profileId={{profileId}}" } },
+        { "name": "Add My List", "request": { "method": "POST", "header": [{ "key": "token", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/my-list", "body": { "mode": "raw", "raw": "{\n  \"profileId\": \"{{profileId}}\",\n  \"contentId\": \"{{contentId}}\"\n}" } } }
+      ]
+    },
+    {
+      "name": "Playback & History",
+      "item": [
+        { "name": "Playback Start", "request": { "method": "POST", "header": [{ "key": "token", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/playback/start", "body": { "mode": "raw", "raw": "{\n  \"profileId\": \"{{profileId}}\",\n  \"contentId\": \"{{contentId}}\"\n}" } } },
+        { "name": "Playback Progress", "request": { "method": "POST", "header": [{ "key": "token", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "url": "{{baseUrl}}/playback/progress", "body": { "mode": "raw", "raw": "{\n  \"profileId\": \"{{profileId}}\",\n  \"contentId\": \"{{contentId}}\",\n  \"positionSec\": 120,\n  \"durationSec\": 1000\n}" } } },
+        { "name": "History Continue", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/history/continue?profileId={{profileId}}" } }
+      ]
+    },
+    {
+      "name": "Settings Notifications Downloads",
+      "item": [
+        { "name": "Get Settings", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/settings?profileId={{profileId}}" } },
+        { "name": "List Notifications", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/notifications?profileId={{profileId}}" } },
+        { "name": "List Downloads", "request": { "method": "GET", "header": [{ "key": "token", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/downloads?profileId={{profileId}}" } }
+      ]
+    }
+  ]
+}
